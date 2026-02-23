@@ -1,6 +1,6 @@
 # zenith_app
 
-A personal life-management application with AI journaling, tasks, and productivity tracking.
+A life-management application with AI journaling, tasks, and productivity tracking.
 
 ## Getting Started
 
