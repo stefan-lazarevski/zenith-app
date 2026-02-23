@@ -183,9 +183,28 @@ class _TaskCardState extends State<TaskCard> with SingleTickerProviderStateMixin
                             ),
                             child: Text(widget.task.title),
                           ),
-                          
+
+                          // Description (optional)
+                          if (widget.task.description != null &&
+                              widget.task.description!.isNotEmpty) ...[
+                            const SizedBox(height: 2),
+                            AnimatedDefaultTextStyle(
+                              duration: const Duration(milliseconds: 300),
+                              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                color: isChecked
+                                    ? Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.5)
+                                    : Theme.of(context).textTheme.bodySmall?.color,
+                              ),
+                              child: Text(
+                                widget.task.description!,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+
                           const SizedBox(height: AppTheme.spacingXs),
-                          
+
                           // Category
                           Row(
                             children: [

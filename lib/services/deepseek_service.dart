@@ -7,13 +7,13 @@ class DeepSeekService {
   static const String _baseUrl = 'https://openrouter.ai/api/v1';
   static const String _model = 'deepseek/deepseek-chat';
 
-  // Function definitions for function calling
   static const List<Map<String, dynamic>> _taskCreationTools = [
     {
       "type": "function",
       "function": {
-        "name": "create_task",
-        "description": "Create a new task from natural language input. Extract the task title, determine the appropriate category, and parse the deadline.",
+        "name": "draft_task",
+        "description":
+            "Show the user a structured confirmation summary of a task before creating it. Call this FIRST when the user asks to create a task, so they can review and confirm the details.",
         "parameters": {
           "type": "object",
           "properties": {
@@ -28,7 +28,36 @@ class DeepSeekService {
             },
             "deadline": {
               "type": "string",
-              "description": "The deadline in ISO 8601 format (YYYY-MM-DDTHH:mm:ss). If only a day is mentioned, use noon (12:00:00). If no time of day is specified, default to 09:00:00."
+              "description":
+                  "The deadline in ISO 8601 format (YYYY-MM-DDTHH:mm:ss). If only a day is mentioned, use noon (12:00:00). If no time is specified, default to 09:00:00."
+            }
+          },
+          "required": ["title", "category", "deadline"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "create_task",
+        "description":
+            "Actually create and save the task. Call this ONLY after the user has confirmed the draft details.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "The title or main action of the task"
+            },
+            "category": {
+              "type": "string",
+              "enum": ["🎓 College", "🛒 Shopping", "💼 Work", "🏠 Personal"],
+              "description": "The category that best fits this task"
+            },
+            "deadline": {
+              "type": "string",
+              "description":
+                  "The deadline in ISO 8601 format (YYYY-MM-DDTHH:mm:ss). If only a day is mentioned, use noon (12:00:00). If no time is specified, default to 09:00:00."
             }
           },
           "required": ["title", "category", "deadline"]
@@ -46,9 +75,16 @@ class DeepSeekService {
       final messages = [
         {
           "role": "system",
-          "content": "You are Zenith's Neural Guide, a helpful AI assistant for managing tasks and journaling. "
-              "When users ask you to create tasks or set reminders, use the create_task function. "
-              "Be concise, friendly, and helpful. Today's date is ${DateTime.now().toIso8601String().split('T')[0]}."
+          "content":
+              "You are Zora, Zenith's AI assistant for task management. Today's date is ${DateTime.now().toIso8601String().split('T')[0]}.\n\n"
+              "TASK CREATION RULES — follow these exactly:\n"
+              "1. When the user asks to create a task, first reply with a short confirmation summary (title, category, deadline) and ask if they would like any changes.\n"
+              "2. When the user confirms (says yes, looks good, no changes, proceed, that is fine, etc.) you MUST immediately call the create_task function. Do NOT describe the creation in text — CALL THE FUNCTION. The function call IS the creation.\n"
+              "3. If you write 'task created' or 'I have created' in text without calling create_task, the task will NOT be saved. This is an error — always use the function.\n"
+              "4. For any edits the user requests before confirming, update your summary and ask again.\n\n"
+              "CATEGORIES: only use these exact values: 🎓 College, 🛒 Shopping, 💼 Work, 🏠 Personal.\n"
+              "DEADLINES: parse natural language (tomorrow, next Monday, etc.) relative to today. Default time is 09:00 if not specified.\n\n"
+              "For non-task questions, be concise and helpful."
         },
         ...?conversationHistory,
         {"role": "user", "content": userMessage}

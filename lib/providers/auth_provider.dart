@@ -1,20 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_service.dart';
+import 'task_provider.dart';
+import 'journal_provider.dart';
+import 'chat_provider.dart';
 
 class AuthProvider extends ChangeNotifier {
   final AuthService _authService = AuthService();
-  
+
   User? _user;
   bool _isLoading = false;
   String? _errorMessage;
 
+  // References to data providers so we can clear them on sign-out
+  TaskProvider? _taskProvider;
+  JournalProvider? _journalProvider;
+  ChatProvider? _chatProvider;
+
   AuthProvider() {
     // Listen to auth state changes
     _authService.authStateChanges.listen((user) {
+      final previousUser = _user;
       _user = user;
+
+      // If a different user signed in (or first sign-in), clear stale data
+      if (user != null && previousUser?.uid != user.uid) {
+        _clearAllData();
+      }
+
       notifyListeners();
     });
+  }
+
+  /// Call this once after all providers are created, to wire up clear-on-signout
+  void setDataProviders({
+    required TaskProvider taskProvider,
+    required JournalProvider journalProvider,
+    required ChatProvider chatProvider,
+  }) {
+    _taskProvider = taskProvider;
+    _journalProvider = journalProvider;
+    _chatProvider = chatProvider;
+  }
+
+  void _clearAllData() {
+    _taskProvider?.clear();
+    _journalProvider?.clear();
+    _chatProvider?.clear();
   }
 
   // Getters
@@ -79,8 +111,9 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  /// Sign out
+  /// Sign out — also clears all in-memory user data
   Future<void> signOut() async {
+    _clearAllData();
     await _authService.signOut();
   }
 

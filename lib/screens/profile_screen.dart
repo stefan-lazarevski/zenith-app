@@ -160,7 +160,8 @@ class ProfileScreen extends StatelessWidget {
     return Consumer<TaskProvider>(
       builder: (context, taskProvider, _) {
         final now = DateTime.now();
-        final weekStart = now.subtract(Duration(days: now.weekday - 1));
+        final weekStart = DateTime(now.year, now.month, now.day)
+            .subtract(Duration(days: now.weekday - 1));
         final weekEnd = weekStart.add(const Duration(days: 7));
         
         final weekTasks = taskProvider.tasks.where((task) {
@@ -337,10 +338,10 @@ class ProfileScreen extends StatelessWidget {
       builder: (context, taskProvider, _) {
         final categoryData = <String, int>{};
         final categoryColors = {
-          '🎓 College': Colors.blue.shade400,
-          '💼 Work': Colors.purple.shade400,
-          '🏠 Personal': Colors.green.shade400,
-          '🛒 Shopping': Colors.orange.shade400,
+          '🎓 College': const Color(0xFF7E9EAD), // Dusty Blue
+          '💼 Work': const Color(0xFF9B8BAF),    // Muted Lavender
+          '🏠 Personal': const Color(0xFF7A9E7E), // Sage Green
+          '🛒 Shopping': const Color(0xFFC58A5A), // Terracotta
         };
         
         // Count tasks by category

@@ -49,67 +49,11 @@ class _TasksScreenState extends State<TasksScreen> {
           final allTasks = taskProvider.tasks;
           final activeTasks = allTasks.where((task) => !task.isCompleted).toList();
           final completedTasks = allTasks.where((task) => task.isCompleted).toList();
-          
-          if (allTasks.isEmpty) {
-            return _buildEmptyState(context);
-          }
-          
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Sort/Filter combined button
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppTheme.spacingM,
-                  vertical: AppTheme.spacingS,
-                ),
-                child: InkWell(
-                  onTap: () => _showSortFilterSheet(context, taskProvider),
-                  borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppTheme.spacingM,
-                      vertical: AppTheme.spacingS,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppTheme.surfaceVariantDark
-                          : AppTheme.surfaceVariant,
-                      borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.tune,
-                          size: 18,
-                          color: taskProvider.filterCategory != null
-                              ? AppTheme.primary
-                              : null,
-                        ),
-                        const SizedBox(width: AppTheme.spacingS),
-                        Text(
-                          taskProvider.filterCategory != null
-                              ? taskProvider.filterCategory!
-                              : 'Sort & Filter',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: taskProvider.filterCategory != null
-                                ? AppTheme.primary
-                                : null,
-                          ),
-                        ),
-                        const SizedBox(width: AppTheme.spacingS),
-                        Icon(
-                          Icons.expand_more,
-                          size: 18,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              
-              // Styled "Add task" button
+              // "What needs to be done?" bar — always visible
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppTheme.spacingM,
@@ -153,8 +97,64 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
               ),
-              
-              // Task list
+
+              // Sort/Filter button (only shown when there are tasks)
+              if (allTasks.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppTheme.spacingM,
+                    vertical: AppTheme.spacingS,
+                  ),
+                  child: InkWell(
+                    onTap: () => _showSortFilterSheet(context, taskProvider),
+                    borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppTheme.spacingM,
+                        vertical: AppTheme.spacingS,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppTheme.surfaceVariantDark
+                            : AppTheme.surfaceVariant,
+                        borderRadius: BorderRadius.circular(AppTheme.radiusM),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.tune,
+                            size: 18,
+                            color: taskProvider.filterCategory != null
+                                ? AppTheme.primary
+                                : null,
+                          ),
+                          const SizedBox(width: AppTheme.spacingS),
+                          Text(
+                            taskProvider.filterCategory != null
+                                ? taskProvider.filterCategory!
+                                : 'Sort & Filter',
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: taskProvider.filterCategory != null
+                                  ? AppTheme.primary
+                                  : null,
+                            ),
+                          ),
+                          const SizedBox(width: AppTheme.spacingS),
+                          Icon(
+                            Icons.expand_more,
+                            size: 18,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+              // Empty state or task list
+              if (allTasks.isEmpty)
+                Expanded(child: _buildEmptyState(context))
+              else
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.all(AppTheme.spacingM),
@@ -202,9 +202,7 @@ class _TasksScreenState extends State<TasksScreen> {
                               child: Divider(
                                 height: 1,
                                 thickness: 2,
-                                color: Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.grey.shade700
-                                    : Colors.grey.shade400,
+                                color: Theme.of(context).dividerColor,
                               ),
                             ),
                             const SizedBox(height: AppTheme.spacingS),
@@ -308,8 +306,8 @@ class _TasksScreenState extends State<TasksScreen> {
                   },
                 ),
               ),
-              ],
-            );
+            ],
+          );
         },
       ),
     );
@@ -336,7 +334,7 @@ class _TasksScreenState extends State<TasksScreen> {
             ),
             const SizedBox(height: AppTheme.spacingS),
             Text(
-              'Tap the + button to create your first task',
+              'Tap + to create your first task',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,
             ),

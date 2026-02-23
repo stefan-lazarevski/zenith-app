@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
           NavigationDestination(
             icon: Icon(Icons.psychology_outlined),
             selectedIcon: Icon(Icons.psychology),
-            label: 'AI',
+            label: 'Zora',
           ),
         ],
       ),

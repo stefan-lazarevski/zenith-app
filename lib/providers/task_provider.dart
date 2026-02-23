@@ -14,9 +14,7 @@ class TaskProvider extends ChangeNotifier {
   TaskSortOption _sortOption = TaskSortOption.createdDate;
   String? _filterCategory;
 
-  TaskProvider () {
-    _initializeDummyData();
-  }
+  TaskProvider();
 
   // Getters
   List<Task> get tasks {
@@ -63,12 +61,14 @@ class TaskProvider extends ChangeNotifier {
   // CRUD Operations
   void addTask({
     required String title,
+    String? description,
     required String category,
     required DateTime deadline,
   }) {
     final task = Task(
       id: _uuid.v4(),
       title: title,
+      description: description?.trim().isEmpty == true ? null : description?.trim(),
       category: category,
       deadline: deadline,
       isCompleted: false,
@@ -117,67 +117,12 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Initialize dummy data
-  void _initializeDummyData() {
-    final now = DateTime.now();
-    
-    _tasks.addAll([
-      Task(
-        id: _uuid.v4(),
-        title: 'Complete Flutter assignment',
-        category: '🎓 College',
-        deadline: now.add(const Duration(days: 2)),
-        isCompleted: false,
-        createdAt: now.subtract(const Duration(days: 3)),
-      ),
-      Task(
-        id: _uuid.v4(),
-        title: 'Buy groceries',
-        category: '🛒 Shopping',
-        deadline: now.add(const Duration(days: 1)),
-        isCompleted: false,
-        createdAt: now.subtract(const Duration(days: 2)),
-      ),
-      Task(
-        id: _uuid.v4(),
-        title: 'Prepare presentation slides',
-        category: '💼 Work',
-        deadline: now.add(const Duration(days: 5)),
-        isCompleted: false,
-        createdAt: now.subtract(const Duration(days: 1)),
-      ),
-      Task(
-        id: _uuid.v4(),
-        title: 'Call dentist for appointment',
-        category: '🏠 Personal',
-        deadline: now.add(const Duration(days: 3)),
-        isCompleted: true,
-        createdAt: now.subtract(const Duration(days: 5)),
-      ),
-      Task(
-        id: _uuid.v4(),
-        title: 'Study for midterm exam',
-        category: '🎓 College',
-        deadline: now.add(const Duration(days: 7)),
-        isCompleted: false,
-        createdAt: now.subtract(const Duration(hours: 12)),
-      ),
-      Task(
-        id: _uuid.v4(),
-        title: 'Pick up dry cleaning',
-        category: '🏠 Personal',
-        deadline: now.add(const Duration(days: 1)),
-        isCompleted: true,
-        createdAt: now.subtract(const Duration(days: 4)),
-      ),
-      Task(
-        id: _uuid.v4(),
-        title: 'Review project proposal',
-        category: '💼 Work',
-        deadline: now.add(const Duration(days: 4)),
-        isCompleted: false,
-        createdAt: now.subtract(const Duration(hours: 6)),
-      ),
-    ]);
+  /// Clears all data — call this when a user signs out
+  void clear() {
+    _tasks.clear();
+    _sortOption = TaskSortOption.createdDate;
+    _filterCategory = null;
+    notifyListeners();
   }
+
 }

@@ -6,9 +6,7 @@ class JournalProvider extends ChangeNotifier {
   final List<Journal> _journals = [];
   final Uuid _uuid = const Uuid();
 
-  JournalProvider() {
-    _initializeDummyData();
-  }
+  JournalProvider();
 
   // Getters
   List<Journal> get journals {
@@ -68,75 +66,9 @@ class JournalProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Initialize dummy data
-  void _initializeDummyData() {
-    final now = DateTime.now();
-
-    _journals.addAll([
-      Journal(
-        id: _uuid.v4(),
-        title: 'Productive Day',
-        content:
-            'Today was incredibly productive! Finished all my assignments early and had time to relax. Feeling grateful and energized.',
-        sentimentEmoji: '😊',
-        timestamp: now.subtract(const Duration(hours: 2)),
-      ),
-      Journal(
-        id: _uuid.v4(),
-        title: 'Project Stress',
-        content:
-            'Had a rough morning with the project deadline looming. Feeling stressed but trying to stay focused. One step at a time.',
-        sentimentEmoji: '😰',
-        timestamp: now.subtract(const Duration(days: 1, hours: 5)),
-      ),
-      Journal(
-        id: _uuid.v4(),
-        title: 'Coffee with a Friend',
-        content:
-            'Coffee with an old friend today. We talked for hours about everything and nothing. These moments remind me what truly matters.',
-        sentimentEmoji: '☕',
-        timestamp: now.subtract(const Duration(days: 2, hours: 3)),
-      ),
-      Journal(
-        id: _uuid.v4(),
-        title: 'Feeling Overwhelmed',
-        content:
-            'Feeling overwhelmed by everything on my plate. Need to take a step back and prioritize. Maybe a walk will help clear my head.',
-        sentimentEmoji: '😔',
-        timestamp: now.subtract(const Duration(days: 3, hours: 7)),
-      ),
-      Journal(
-        id: _uuid.v4(),
-        title: 'Work Milestone',
-        content:
-            'Accomplished a major milestone at work today! The presentation went better than expected. Celebrating the small wins.',
-        sentimentEmoji: '🎉',
-        timestamp: now.subtract(const Duration(days: 4, hours: 1)),
-      ),
-      Journal(
-        id: _uuid.v4(),
-        title: 'Quiet Sunday Morning',
-        content:
-            'Quiet Sunday morning. Reading a good book with tea. These peaceful moments are rare but so necessary for recharging.',
-        sentimentEmoji: '📖',
-        timestamp: now.subtract(const Duration(days: 5, hours: 10)),
-      ),
-      Journal(
-        id: _uuid.v4(),
-        title: 'Unfocused Day',
-        content:
-            'Struggled to focus today. Mind keeps wandering. Sometimes it\'s okay to have off days. Tomorrow is a new opportunity.',
-        sentimentEmoji: '😐',
-        timestamp: now.subtract(const Duration(days: 6, hours: 4)),
-      ),
-      Journal(
-        id: _uuid.v4(),
-        title: 'New Workout Routine',
-        content:
-            'Started a new workout routine. Body is sore but mind feels clear. Excited to build this habit and see where it takes me.',
-        sentimentEmoji: '💪',
-        timestamp: now.subtract(const Duration(days: 7, hours: 8)),
-      ),
-    ]);
+  /// Clears all data — call this when a user signs out
+  void clear() {
+    _journals.clear();
+    notifyListeners();
   }
 }

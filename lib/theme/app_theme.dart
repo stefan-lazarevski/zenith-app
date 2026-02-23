@@ -2,38 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // Color Palette - Minimalist & Muted
-  static const Color primary = Color(0xFF6B7FD7); // Soft blue
-  static const Color primaryDark = Color(0xFF4A5FC1);
-  static const Color secondary = Color(0xFF8B9DC3); // Light blue-gray
-  static const Color accent = Color(0xFFFFAB8F); // Soft coral
+  // ─── Earthy Color Palette ─────────────────────────────────────────────────
 
-  // Neutrals
-  static const Color background = Color(0xFFF8F9FA);
-  static const Color surface = Color(0xFFFFFFFF);
-  static const Color surfaceVariant = Color(0xFFF1F3F5);
-  
-  // Dark Mode
-  static const Color backgroundDark = Color(0xFF0F1419);
-  static const Color surfaceDark = Color(0xFF1A1F26);
-  static const Color surfaceVariantDark = Color(0xFF272D35);
+  // Primary — Warm Taupe / Mocha
+  static const Color primary = Color(0xFF7C6F5B);
+  static const Color primaryDark = Color(0xFFA89880);
 
-  // Text
-  static const Color textPrimary = Color(0xFF1A1F26);
-  static const Color textSecondary = Color(0xFF6B7280);
-  static const Color textTertiary = Color(0xFF9CA3AF);
-  
-  static const Color textPrimaryDark = Color(0xFFE5E7EB);
-  static const Color textSecondaryDark = Color(0xFFA1A8B0);
-  static const Color textTertiaryDark = Color(0xFF6B7280);
+  // Secondary — Sandy Brown
+  static const Color secondary = Color(0xFFA0906F);
 
-  // Semantic
-  static const Color success = Color(0xFF6FCF97);
-  static const Color warning = Color(0xFFF2C94C);
-  static const Color error = Color(0xFFEB5757);
-  static const Color info = Color(0xFF2D9CDB);
+  // Accent — Terracotta
+  static const Color accent = Color(0xFFC58A5A);
 
-  // Spacing Scale
+  // ─── Light Mode Surfaces ──────────────────────────────────────────────────
+  static const Color background = Color(0xFFF5F0EB);      // Linen
+  static const Color surface = Color(0xFFFDFAF7);         // Warm White
+  static const Color surfaceVariant = Color(0xFFEDE6DC);  // Driftwood
+
+  // ─── Dark Mode Surfaces ───────────────────────────────────────────────────
+  static const Color backgroundDark = Color(0xFF1C1815);    // Deep Espresso
+  static const Color surfaceDark = Color(0xFF2A2420);       // Bark
+  static const Color surfaceVariantDark = Color(0xFF352E28); // Walnut
+
+  // ─── Light Mode Text ──────────────────────────────────────────────────────
+  static const Color textPrimary = Color(0xFF2C2218);      // Espresso
+  static const Color textSecondary = Color(0xFF6B5C47);    // Mushroom
+  static const Color textTertiary = Color(0xFF9C8B78);     // Warm Gray
+
+  // ─── Dark Mode Text ───────────────────────────────────────────────────────
+  static const Color textPrimaryDark = Color(0xFFEDE6DC);  // Cream
+  static const Color textSecondaryDark = Color(0xFFA89880); // Light Mocha
+  static const Color textTertiaryDark = Color(0xFF6B5C47); // Mushroom
+
+  // ─── Semantic ─────────────────────────────────────────────────────────────
+  static const Color success = Color(0xFF7A9E7E); // Sage Green
+  static const Color warning = Color(0xFFD4A853); // Amber
+  static const Color error = Color(0xFFB85C4A);   // Rust Red
+  static const Color info = Color(0xFF7E9EAD);    // Dusty Blue
+
+  // ─── Spacing Scale ────────────────────────────────────────────────────────
   static const double spacingXs = 4.0;
   static const double spacingS = 8.0;
   static const double spacingM = 16.0;
@@ -41,18 +48,18 @@ class AppTheme {
   static const double spacingXl = 32.0;
   static const double spacingXxl = 48.0;
 
-  // Border Radius
+  // ─── Border Radius ────────────────────────────────────────────────────────
   static const double radiusS = 8.0;
   static const double radiusM = 12.0;
   static const double radiusL = 16.0;
   static const double radiusXl = 24.0;
 
-  // Elevation
-  static const double elevationS = 2.0;
-  static const double elevationM = 4.0;
-  static const double elevationL = 8.0;
+  // ─── Elevation ────────────────────────────────────────────────────────────
+  static const double elevationS = 1.0;
+  static const double elevationM = 3.0;
+  static const double elevationL = 6.0;
 
-  // Light Theme
+  // ─── Light Theme ──────────────────────────────────────────────────────────
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
@@ -61,59 +68,67 @@ class AppTheme {
       secondary: secondary,
       surface: surface,
       error: error,
+      onPrimary: Colors.white,
+      onSecondary: Colors.white,
+      onSurface: textPrimary,
     ),
     scaffoldBackgroundColor: background,
-    
-    // Typography
-    textTheme: GoogleFonts.interTextTheme().copyWith(
-      displayLarge: GoogleFonts.inter(
+
+    // Typography — DM Sans for a soft, organic feel
+    textTheme: GoogleFonts.dmSansTextTheme().copyWith(
+      displayLarge: GoogleFonts.dmSans(
         fontSize: 32,
         fontWeight: FontWeight.w700,
         color: textPrimary,
         letterSpacing: -0.5,
       ),
-      displayMedium: GoogleFonts.inter(
+      displayMedium: GoogleFonts.dmSans(
         fontSize: 28,
         fontWeight: FontWeight.w600,
         color: textPrimary,
         letterSpacing: -0.5,
       ),
-      displaySmall: GoogleFonts.inter(
+      displaySmall: GoogleFonts.dmSans(
         fontSize: 24,
         fontWeight: FontWeight.w600,
         color: textPrimary,
       ),
-      headlineMedium: GoogleFonts.inter(
+      headlineMedium: GoogleFonts.dmSans(
         fontSize: 20,
         fontWeight: FontWeight.w600,
         color: textPrimary,
       ),
-      titleLarge: GoogleFonts.inter(
+      titleLarge: GoogleFonts.dmSans(
         fontSize: 18,
         fontWeight: FontWeight.w600,
         color: textPrimary,
       ),
-      titleMedium: GoogleFonts.inter(
+      titleMedium: GoogleFonts.dmSans(
         fontSize: 16,
         fontWeight: FontWeight.w500,
         color: textPrimary,
       ),
-      bodyLarge: GoogleFonts.inter(
+      titleSmall: GoogleFonts.dmSans(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: textPrimary,
+      ),
+      bodyLarge: GoogleFonts.dmSans(
         fontSize: 16,
         fontWeight: FontWeight.w400,
         color: textPrimary,
       ),
-      bodyMedium: GoogleFonts.inter(
+      bodyMedium: GoogleFonts.dmSans(
         fontSize: 14,
         fontWeight: FontWeight.w400,
         color: textSecondary,
       ),
-      bodySmall: GoogleFonts.inter(
+      bodySmall: GoogleFonts.dmSans(
         fontSize: 12,
         fontWeight: FontWeight.w400,
         color: textTertiary,
       ),
-      labelLarge: GoogleFonts.inter(
+      labelLarge: GoogleFonts.dmSans(
         fontSize: 14,
         fontWeight: FontWeight.w500,
         color: textPrimary,
@@ -123,8 +138,9 @@ class AppTheme {
     // Card Theme
     cardTheme: CardThemeData(
       elevation: elevationS,
+      shadowColor: const Color(0xFF7C6F5B).withOpacity(0.12),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radiusM),
+        borderRadius: BorderRadius.circular(radiusL),
       ),
       color: surface,
     ),
@@ -135,7 +151,8 @@ class AppTheme {
       centerTitle: false,
       backgroundColor: background,
       foregroundColor: textPrimary,
-      titleTextStyle: GoogleFonts.inter(
+      surfaceTintColor: Colors.transparent,
+      titleTextStyle: GoogleFonts.dmSans(
         fontSize: 20,
         fontWeight: FontWeight.w600,
         color: textPrimary,
@@ -165,13 +182,40 @@ class AppTheme {
         borderRadius: BorderRadius.circular(radiusM),
         borderSide: const BorderSide(color: primary, width: 2),
       ),
+      labelStyle: GoogleFonts.dmSans(color: textSecondary),
+      hintStyle: GoogleFonts.dmSans(color: textTertiary),
       contentPadding: const EdgeInsets.symmetric(
         horizontal: spacingM,
         vertical: spacingM,
       ),
     ),
 
-    // Bottom Navigation Bar
+    // Navigation Bar (Material 3)
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: surface,
+      indicatorColor: primary.withOpacity(0.15),
+      iconTheme: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(color: primary);
+        }
+        return const IconThemeData(color: textTertiary);
+      }),
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return GoogleFonts.dmSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: primary,
+          );
+        }
+        return GoogleFonts.dmSans(
+          fontSize: 12,
+          color: textTertiary,
+        );
+      }),
+    ),
+
+    // Bottom Navigation Bar (legacy, kept for compatibility)
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: surface,
       selectedItemColor: primary,
@@ -186,70 +230,99 @@ class AppTheme {
       thickness: 1,
       space: 1,
     ),
+
+    // Chip Theme
+    chipTheme: ChipThemeData(
+      backgroundColor: surfaceVariant,
+      selectedColor: primary.withOpacity(0.18),
+      labelStyle: GoogleFonts.dmSans(fontSize: 13, color: textPrimary),
+      side: const BorderSide(color: Colors.transparent),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(radiusS),
+      ),
+    ),
+
+    // SnackBar
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: textPrimary,
+      contentTextStyle: GoogleFonts.dmSans(color: surface, fontSize: 14),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(radiusM),
+      ),
+      behavior: SnackBarBehavior.floating,
+    ),
   );
 
-  // Dark Theme
+  // ─── Dark Theme ───────────────────────────────────────────────────────────
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
     colorScheme: const ColorScheme.dark(
-      primary: primary,
+      primary: primaryDark,
       secondary: secondary,
       surface: surfaceDark,
       error: error,
+      onPrimary: Colors.white,
+      onSecondary: Colors.white,
+      onSurface: textPrimaryDark,
     ),
     scaffoldBackgroundColor: backgroundDark,
-    
-    // Typography
-    textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
-      displayLarge: GoogleFonts.inter(
+
+    // Typography — DM Sans
+    textTheme: GoogleFonts.dmSansTextTheme(ThemeData.dark().textTheme).copyWith(
+      displayLarge: GoogleFonts.dmSans(
         fontSize: 32,
         fontWeight: FontWeight.w700,
         color: textPrimaryDark,
         letterSpacing: -0.5,
       ),
-      displayMedium: GoogleFonts.inter(
+      displayMedium: GoogleFonts.dmSans(
         fontSize: 28,
         fontWeight: FontWeight.w600,
         color: textPrimaryDark,
         letterSpacing: -0.5,
       ),
-      displaySmall: GoogleFonts.inter(
+      displaySmall: GoogleFonts.dmSans(
         fontSize: 24,
         fontWeight: FontWeight.w600,
         color: textPrimaryDark,
       ),
-      headlineMedium: GoogleFonts.inter(
+      headlineMedium: GoogleFonts.dmSans(
         fontSize: 20,
         fontWeight: FontWeight.w600,
         color: textPrimaryDark,
       ),
-      titleLarge: GoogleFonts.inter(
+      titleLarge: GoogleFonts.dmSans(
         fontSize: 18,
         fontWeight: FontWeight.w600,
         color: textPrimaryDark,
       ),
-      titleMedium: GoogleFonts.inter(
+      titleMedium: GoogleFonts.dmSans(
         fontSize: 16,
         fontWeight: FontWeight.w500,
         color: textPrimaryDark,
       ),
-      bodyLarge: GoogleFonts.inter(
+      titleSmall: GoogleFonts.dmSans(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: textPrimaryDark,
+      ),
+      bodyLarge: GoogleFonts.dmSans(
         fontSize: 16,
         fontWeight: FontWeight.w400,
         color: textPrimaryDark,
       ),
-      bodyMedium: GoogleFonts.inter(
+      bodyMedium: GoogleFonts.dmSans(
         fontSize: 14,
         fontWeight: FontWeight.w400,
         color: textSecondaryDark,
       ),
-      bodySmall: GoogleFonts.inter(
+      bodySmall: GoogleFonts.dmSans(
         fontSize: 12,
         fontWeight: FontWeight.w400,
         color: textTertiaryDark,
       ),
-      labelLarge: GoogleFonts.inter(
+      labelLarge: GoogleFonts.dmSans(
         fontSize: 14,
         fontWeight: FontWeight.w500,
         color: textPrimaryDark,
@@ -259,8 +332,9 @@ class AppTheme {
     // Card Theme
     cardTheme: CardThemeData(
       elevation: elevationS,
+      shadowColor: Colors.black.withOpacity(0.3),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radiusM),
+        borderRadius: BorderRadius.circular(radiusL),
       ),
       color: surfaceDark,
     ),
@@ -271,7 +345,8 @@ class AppTheme {
       centerTitle: false,
       backgroundColor: backgroundDark,
       foregroundColor: textPrimaryDark,
-      titleTextStyle: GoogleFonts.inter(
+      surfaceTintColor: Colors.transparent,
+      titleTextStyle: GoogleFonts.dmSans(
         fontSize: 20,
         fontWeight: FontWeight.w600,
         color: textPrimaryDark,
@@ -280,7 +355,7 @@ class AppTheme {
 
     // Floating Action Button
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: primary,
+      backgroundColor: primaryDark,
       foregroundColor: Colors.white,
       elevation: elevationM,
     ),
@@ -299,18 +374,45 @@ class AppTheme {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(radiusM),
-        borderSide: const BorderSide(color: primary, width: 2),
+        borderSide: const BorderSide(color: primaryDark, width: 2),
       ),
+      labelStyle: GoogleFonts.dmSans(color: textSecondaryDark),
+      hintStyle: GoogleFonts.dmSans(color: textTertiaryDark),
       contentPadding: const EdgeInsets.symmetric(
         horizontal: spacingM,
         vertical: spacingM,
       ),
     ),
 
-    // Bottom Navigation Bar
+    // Navigation Bar (Material 3)
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: surfaceDark,
+      indicatorColor: primaryDark.withOpacity(0.2),
+      iconTheme: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return const IconThemeData(color: primaryDark);
+        }
+        return const IconThemeData(color: textTertiaryDark);
+      }),
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return GoogleFonts.dmSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: primaryDark,
+          );
+        }
+        return GoogleFonts.dmSans(
+          fontSize: 12,
+          color: textTertiaryDark,
+        );
+      }),
+    ),
+
+    // Bottom Navigation Bar (legacy)
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: surfaceDark,
-      selectedItemColor: primary,
+      selectedItemColor: primaryDark,
       unselectedItemColor: textTertiaryDark,
       type: BottomNavigationBarType.fixed,
       elevation: elevationM,
@@ -321,6 +423,27 @@ class AppTheme {
       color: surfaceVariantDark,
       thickness: 1,
       space: 1,
+    ),
+
+    // Chip Theme
+    chipTheme: ChipThemeData(
+      backgroundColor: surfaceVariantDark,
+      selectedColor: primaryDark.withOpacity(0.2),
+      labelStyle: GoogleFonts.dmSans(fontSize: 13, color: textPrimaryDark),
+      side: const BorderSide(color: Colors.transparent),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(radiusS),
+      ),
+    ),
+
+    // SnackBar
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: textPrimaryDark,
+      contentTextStyle: GoogleFonts.dmSans(color: backgroundDark, fontSize: 14),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(radiusM),
+      ),
+      behavior: SnackBarBehavior.floating,
     ),
   );
 }

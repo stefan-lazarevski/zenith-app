@@ -16,6 +16,7 @@ class AddEditTaskScreen extends StatefulWidget {
 class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _titleController;
+  late TextEditingController _descriptionController;
   late String _selectedCategory;
   late DateTime _selectedDeadline;
 
@@ -30,6 +31,7 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: widget.task?.title ?? '');
+    _descriptionController = TextEditingController(text: widget.task?.description ?? '');
     _selectedCategory = widget.task?.category ?? _predefinedCategories.first;
     _selectedDeadline = widget.task?.deadline ?? DateTime.now().add(const Duration(days: 1));
   }
@@ -37,6 +39,7 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
   @override
   void dispose() {
     _titleController.dispose();
+    _descriptionController.dispose();
     super.dispose();
   }
 
@@ -75,6 +78,21 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
               },
               textCapitalization: TextCapitalization.sentences,
               autofocus: !isEditing,
+            ),
+
+            const SizedBox(height: AppTheme.spacingM),
+
+            // Description field (optional)
+            TextFormField(
+              controller: _descriptionController,
+              decoration: const InputDecoration(
+                labelText: 'Description (optional)',
+                hintText: 'Add a few details…',
+                alignLabelWithHint: true,
+              ),
+              maxLines: 3,
+              minLines: 1,
+              textCapitalization: TextCapitalization.sentences,
             ),
 
             const SizedBox(height: AppTheme.spacingL),
@@ -178,11 +196,13 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
     if (_formKey.currentState!.validate()) {
       final taskProvider = context.read<TaskProvider>();
 
+      final desc = _descriptionController.text.trim();
       if (widget.task != null) {
         // Update existing task
         taskProvider.updateTask(
           widget.task!.copyWith(
             title: _titleController.text.trim(),
+            description: desc.isEmpty ? null : desc,
             category: _selectedCategory,
             deadline: _selectedDeadline,
           ),
@@ -191,6 +211,7 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
         // Create new task
         taskProvider.addTask(
           title: _titleController.text.trim(),
+          description: desc.isEmpty ? null : desc,
           category: _selectedCategory,
           deadline: _selectedDeadline,
         );

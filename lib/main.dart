@@ -25,13 +25,35 @@ class ZenithApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => TaskProvider()),
         ChangeNotifierProvider(create: (_) => JournalProvider()),
         ChangeNotifierProxyProvider<TaskProvider, ChatProvider>(
           create: (context) => ChatProvider(context.read<TaskProvider>()),
           update: (context, taskProvider, chatProvider) =>
               chatProvider ?? ChatProvider(taskProvider),
+        ),
+        // AuthProvider is created last so it can receive references to the
+        // data providers and clear them on sign-out / user switch.
+        ChangeNotifierProxyProvider3<TaskProvider, JournalProvider, ChatProvider, AuthProvider>(
+          create: (context) {
+            final auth = AuthProvider();
+            auth.setDataProviders(
+              taskProvider: context.read<TaskProvider>(),
+              journalProvider: context.read<JournalProvider>(),
+              chatProvider: context.read<ChatProvider>(),
+            );
+            return auth;
+          },
+          update: (context, taskProvider, journalProvider, chatProvider, auth) {
+            // Update references whenever the proxy rebuilds (e.g. ChatProvider
+            // reference changes when TaskProvider updates)
+            auth!.setDataProviders(
+              taskProvider: taskProvider,
+              journalProvider: journalProvider,
+              chatProvider: chatProvider,
+            );
+            return auth;
+          },
         ),
       ],
       child: MaterialApp(
