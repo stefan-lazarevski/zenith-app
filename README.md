@@ -1,16 +1,28 @@
-# zenith_app
+# Zenith
 
-A life-management application with AI journaling, tasks, and productivity tracking.
+A Flutter app built to be your central hub for daily life management and combining journaling, task organization, and an AI assistant into one seamless experience.
 
-## Getting Started
+## Project Overview
 
-This project is a starting point for a Flutter application.
+Zenith is a productivity app designed to help you stay on top of your day. Rather than juggling multiple tools, Zenith brings everything together: a space to reflect, a smart task manager, and an AI companion that actively supports your wellbeing and routine.
 
-A few resources to get you started if this is your first Flutter project:
+The app is built around the idea that productivity and mental wellness go hand in hand, so alongside helping you get things done, Zenith pays attention to how you're actually feeling.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Features
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Journal**
+Write and reflect on your day in a dedicated journaling space. Zenith uses AI-powered sentiment analysis to evaluate the tone of your entries and suggest how your mood is trending, giving you a clearer picture of your emotional patterns over time.
+
+**To-Do List**
+A smart task manager that lets you create, categorize, and prioritize tasks with ease. Set deadlines and reminders, and sort or filter by category, priority or due date to stay organized without the mental overhead.
+
+**Zora AI Assistant**
+Zora is Zenith's built-in AI companion, designed to support your day-to-day routine. She delivers personalized daily affirmations, helps you set reminders, and keeps you motivated and on schedule.
+
+## Contributors
+
+This project was developed as a college project at the Faculty of Computer Science and Engineering (FINKI), Ss. Cyril and Methodius University, Skopje, Macedonia.
+
+**Development Team**
+- Stefan Lazarevski
+- Ana Marija Kraus
